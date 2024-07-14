@@ -58,7 +58,9 @@ jobs:
         run: unzip release.zip
 
       - name: Running manage.py
-        run: python manage.py migrate
+        run: |
+          source venv/bin/activate
+          python manage.py migrate
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
