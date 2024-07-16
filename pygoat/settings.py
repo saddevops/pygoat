@@ -168,4 +168,4 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SECRET_COOKIE_KEY = "PYGOAT"
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000","http://0.0.0.0:8000","http://172.16.189.10", "https://pygoats.azurewebsites.net","https://pygoats2.azurewebsites.net"]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000","http://0.0.0.0:8000","http://172.16.189.10", "https://pygoats.azurewebsites.net","https://pygoat2.azurewebsites.net"]
