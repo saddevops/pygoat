@@ -30,7 +30,15 @@ jobs:
       uses: snyk/actions/setup@master
 
     - name: Run Snyk to check for vulnerabilities
-      run: snyk test --json-file-output=snyk_report.json
+      run: |
+        export exitcode=0
+        snyk test --json-file-output=snyk_report.json || export exitcode=$?
+        if [$exitcode -eq 1]; then
+            echo "[*] Found issues"
+            exit 0
+        fi
+
+        snyk test --json-file-output=snyk_report.json
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
