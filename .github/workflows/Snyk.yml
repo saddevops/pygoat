@@ -56,27 +56,27 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-    - name: Create String Output
-      id: Snykstr
-      run: |
-        SNYK_OUTPUT=$(snyk test --json-file-output=snyk_report.json)
-        delimiter="$(openssl rand -hex 8)"
-        echo "PLAN<<${delimiter}" >> $GITHUB_OUTPUT
-        echo "$SNYK_OUTPUT" >> $GITHUB_OUTPUT
-        echo "${delimiter}" >> $GITHUB_OUTPUT
+    # - name: Create String Output
+    #   id: Snykstr
+    #   run: |
+    #     SNYK_OUTPUT=$(snyk test --json-file-output=snyk_report.json)
+    #     delimiter="$(openssl rand -hex 8)"
+    #     echo "PLAN<<${delimiter}" >> $GITHUB_OUTPUT
+    #     echo "$SNYK_OUTPUT" >> $GITHUB_OUTPUT
+    #     echo "${delimiter}" >> $GITHUB_OUTPUT
 
    
-    - name: Publish Snyk Report
-      env:
-        SNYK_OUT: ${{ steps.Snykstr.outputs.PLAN }}
-      run: |
-        echo "## Snyk output" >> $GITHUB_STEP_SUMMARY
-        echo "<details><summary>Click to view details</summary>" >> $GITHUB_STEP_SUMMARY
-        echo "" >> $GITHUB_STEP_SUMMARY
-        echo '```terraform' >> $GITHUB_STEP_SUMMARY
-        echo "$SNYK_OUT" >> $GITHUB_STEP_SUMMARY
-        echo '```' >> $GITHUB_STEP_SUMMARY
-        echo "</details>" >> $GITHUB_STEP_SUMMARY
+    # - name: Publish Snyk Report
+    #   env:
+    #     SNYK_OUT: ${{ steps.Snykstr.outputs.PLAN }}
+    #   run: |
+    #     echo "## Snyk output" >> $GITHUB_STEP_SUMMARY
+    #     echo "<details><summary>Click to view details</summary>" >> $GITHUB_STEP_SUMMARY
+    #     echo "" >> $GITHUB_STEP_SUMMARY
+    #     echo '```terraform' >> $GITHUB_STEP_SUMMARY
+    #     echo "$SNYK_OUT" >> $GITHUB_STEP_SUMMARY
+    #     echo '```' >> $GITHUB_STEP_SUMMARY
+    #     echo "</details>" >> $GITHUB_STEP_SUMMARY
        
 
     # - name: Convert Snyk results to SARIF format
