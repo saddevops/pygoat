@@ -43,7 +43,7 @@ jobs:
 
     - name: Add Job Summary for Snyk
       if: success() || failure()    
-      uses: OMGhozlan/snyk-job-summary-action@v1.0.2
+      uses: OMGhozlan/snyk-job-summary-action@v1.0.3
       with:
         dependencies-report-path: snyk_report.json
         code-report-path: snyk_code_report.json
