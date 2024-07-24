@@ -34,7 +34,7 @@ jobs:
         export exitcode=0
         snyk test --json-file-output=snyk_report.json || export exitcode=$?
         snyk code test --json-file-output=snyk_code_report.json || export exitcode=$?
-        snyk container test --file=Dockerfile --json-file-output=snyk_docker_report.json || export exitcode=$?
+        snyk container test --file=./Dockerfile --json-file-output=snyk_docker_report.json || export exitcode=$?
         cat snyk_report.json snyk_code_report.json snyk_docker_report.json
         if [ $exitcode -eq 1 ]; then
             echo "[*] Found issues"
@@ -45,8 +45,16 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+    - name: Add Job Summary for Snyk
+      uses: OMGhozlan/snyk-job-summary-action@v1
+      with:
+        dependencies-report-path: snyk_report.json
+        code-report-path: snyk_code_report.json
+
+
+
     - name: Monitor dependencies for security issues with Snyk
-      run: snyk monitor
+      run: snyk monitor --all-projects --detection-depth=4
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
