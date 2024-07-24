@@ -44,6 +44,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     - name: Add Job Summary for Snyk
+      if: success() || failure()    
       uses: OMGhozlan/snyk-job-summary-action@v1.0.1
       with:
         dependencies-report-path: snyk_report.json
@@ -52,6 +53,7 @@ jobs:
 
 
     - name: Monitor dependencies for security issues with Snyk
+      if: success() || failure()
       run: snyk monitor --all-projects --detection-depth=4
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
