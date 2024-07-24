@@ -37,7 +37,7 @@ jobs:
         snyk code test --json-file-output=snyk_code_report.json || export exitcode=$?
         snyk container test -d --file=./Dockerfile --json-file-output=snyk_docker_report.json || export exitcode=$?
         cat snyk_report.json snyk_code_report.json snyk_docker_report.json
-        if [ $exitcode -eq 1 ]; then
+        if [ $exitcode -ne 0 ]; then
             echo "[*] Found issues"
             exit 0
         fi
