@@ -47,7 +47,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     - name: Add Job Summary for Snyk
-      uses: OMGhozlan/snyk-job-summary-action@v1
+      uses: OMGhozlan/snyk-job-summary-action@v1.0.1
       with:
         dependencies-report-path: snyk_report.json
         code-report-path: snyk_code_report.json
