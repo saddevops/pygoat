@@ -33,7 +33,7 @@ jobs:
     - name: Run Snyk to check for vulnerabilities
       run: |
         export exitcode=0
-        snyk test --json-file-output=snyk_report.json || export exitcode=$?
+        snyk test -d --json-file-output=snyk_report.json || export exitcode=$?
         snyk code test --json-file-output=snyk_code_report.json || export exitcode=$?
         exit 0
 
