@@ -12,6 +12,10 @@ on:
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
+    defaults:
+        run:
+            shell: bash
+            working-directory: .
     name: Run ZAP Scan with Nightly Image
     steps:
       - name: Checkout Code
@@ -22,7 +26,7 @@ jobs:
 
       - name: Run ZAP Scan
         run: |
-          docker run -v ${{ github.workspace }}:/zap/wrk/ \
+          docker run -v ${{ github.workspace }}:/tmp/zap/wrk/ \
           -t ghcr.io/zaproxy/zaproxy:nightly \
           zap-full-scan.py -t http://pygoat2.azurewebsites.net/.* -r zap_report2.html
 
