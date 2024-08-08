@@ -27,6 +27,9 @@ jobs:
           target: 'http://pygoat2.azurewebsites.net/'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a -J zap_report.json -r zap_report.html -w zap_report.md'
+        env:
+          GITHUB_TOKEN: ${{ secrets.ZAP_TOKEN }}
+        continue-on-error: true # Ensure subsequent steps run even if this step fails
 
       - name: Upload ZAP JSON Report
         if: always()
@@ -42,4 +45,13 @@ jobs:
           name: zap-report-html
           path: zap_report.html
 
+      - name: Check ZAP Logs
+        if: always()
+        run: cat /github/workspace/zap.out || echo "No ZAP logs found"
 
+      - name: Upload ZAP Log
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: zap-log
+          path: /github/workspace/zap.out
