@@ -13,9 +13,9 @@ jobs:
   zap_scan:
     runs-on: ubuntu-latest
     defaults:
-        run:
-            shell: bash
-            working-directory: .
+      run:
+        shell: bash
+        working-directory: .
     name: Run ZAP Scan with Nightly Image
     steps:
       - name: Checkout Code
@@ -26,10 +26,10 @@ jobs:
 
       - name: Run ZAP Scan
         run: |
-          docker run -v ${{ github.workspace }}:/tmp/zap/wrk/ \
+          docker run --user root -v ${{ github.workspace }}:/zap/wrk/ \
           -t ghcr.io/zaproxy/zaproxy:nightly \
-          /tmp/zap/wrk/zap-full-scan.py -t http://pygoat2.azurewebsites.net/.* -r /tmp/zap/wrk/zap_report2.html
-
+          bash -c "zap-full-scan.py -t http://pygoat2.azurewebsites.net/ -r zap_report2.html && chmod 777 /zap/wrk/zap_report2.html"
+          
       - name: Upload ZAP HTML Report
         if: always()
         uses: actions/upload-artifact@v4
