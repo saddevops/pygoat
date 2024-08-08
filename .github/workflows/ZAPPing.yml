@@ -24,7 +24,7 @@ jobs:
         run: |
           docker run -v ${{ github.workspace }}:/zap/wrk/ \
           -t ghcr.io/zaproxy/zaproxy:nightly \
-          zap-full-scan.py -t http://pygoat2.azurewebsites.net/ -r zap_report2.html
+          zap-full-scan.py -t http://pygoat2.azurewebsites.net/.* -r zap_report2.html
 
       - name: Upload ZAP HTML Report
         if: always()
